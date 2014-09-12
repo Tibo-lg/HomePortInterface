@@ -1,0 +1,54 @@
+<ul id="picker">
+  <li id="{{deviceType | lowercase}}" data-dragfct="setCurDeviceType" data-devicetype="deviceType" draggable="true" data-ng-repeat="deviceType in appCtrl.deviceTypes" data-drag-device></li>
+  <li id="unknown" draggable="true" data-dragfct="setCurDeviceType" data-devicetype="" data-drag-device></li>
+</ul>
+<div class="col-md-6">
+  <div class="block-container">
+    <p>If the house is in this state:</p>
+    <div class="block droppable" data-dropfct="openModal" data-type="2" data-drop-device><p class="center">Drop a device here!</p></div>
+    <div data-ng-repeat="block in appCtrl.curScenario.conditions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated">
+      <img class="center" src="images/switch.png"/>
+      <p>{{block.Device.location}}</p>
+      <p>{{block.Device.desc}}</p>
+      <p>{{block.operator}}  {{block.value}}</p>
+    </div>
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="block-container">
+    <p>Then the house should never perform these actions:</p>
+    <div class="block droppable" data-dropfct="openModal" data-type="3" data-drop-device><p class="center">Drop a device here!</p></div>
+    <div data-ng-repeat="block in appCtrl.curScenario.actions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated">
+      <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
+      <p class="center block-label">Location:<br/>Device:<br/>Never set to:</p>
+      <p class="center block-value">{{block.Device.location}}<br/>{{block.Device.desc}}<br/>{{block.operator}}  {{block.value}}</p>
+    </div>
+  </div>
+</div>
+<div class="modal-form" data-ng-show="appCtrl.showModal!=0">
+  <div>
+    <p>Select which device:</p>
+    <select data-ng-model="appCtrl.newBlock.Device" data-ng-options="device.desc group by device.location for device in appCtrl.devices | filter: { type: appCtrl.curDeviceType}">
+      <option value="">Choose Device</option>
+    </select>
+    {{appCtrl.newBlock.Device.services[0].desc}}
+    <p>Select Which Service:</p>
+    <select data-ng-model="appCtrl.newBlock.Service" data-ng-disabled="!appCtrl.newBlock.Device" data-ng-options="service.desc for service in appCtrl.newBlock.Device.service">
+      <option value="">Choose Service</option>
+    </select>
+    <p>Select how the device should be to start the scenario:</p>
+    <select data-ng-model="appCtrl.newBlock.operator" data-ng-disabled="!appCtrl.newBlock.Device">
+      <option value="=" data-ng-selected="selected">=</option>
+      <option value="<">&lt;</option>
+      <option value=">">&gt;</option>
+      <option value="<=">&lt;=</option>
+      <option value=">=">&gt;=</option>
+    </select>
+    <select data-ng-model="appCtrl.newBlock.value" data-ng-disabled="!appCtrl.newBlock.Service" 
+      data-ng-options="n for n in [] | range:appCtrl.newBlock.Service.parameter.min:appCtrl.newBlock.Service.parameter.max:appCtrl.newBlock.Service.parameter.step" >
+      <option value="">Choose Value</option>
+    </select><br/>
+    <button data-ng-click="appCtrl.addBlock()" >Add Block</button>
+    <button data-ng-click="appCtrl.resetBlock()" >Cancel</button>
+  </div>
+</div>

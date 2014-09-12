@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HomeBlock</title>
+    <link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles/normalize.css" />
+    <link rel="stylesheet" href="styles/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body data-ng-controller="app.AppCtrl">
+    <ul id="menu">
+      <li>NEW</li>
+      <li>LOAD</li>
+      <li><a href="#/prop">TEMPLATES</a></li>
+      <li data-ng-click="appCtrl.saveScenario()">SAVE</li>
+      <li>NAME: <input type="text" data-ng-model="appCtrl.curScenario.name"></li>
+    </ul>
+    <div class="" ui-view></div>
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://w3resource.com/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-tooltip.js"></script>
+    <script src="http://w3resource.com/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-popover.js"></script>
+    -->
+    <!-- Vendor Libs: jQuery only used for Bootstrap functionality -->
+    <script src="js-libs/jquery/dist/jquery.min.js"></script>
+    <script src="js-libs/angular/angular.js"></script>
+    <script src="js-libs/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="js-libs/angular-cookies/angular-cookies.js"></script>
+    <script src="js-libs/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="js-libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- UI -->
+    <script src="js-libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- d3js -->
+    <script src="js-libs/d3/d3.min.js"></script>
+    <!-- App libs -->
+    <script src="js/app.js"></script>
+    <!-- App Controllers -->
+    <script src="js/controllers/appCtrl.js"></script>
+    <!-- App Directives -->
+    <script src="js/directives/dragDevice.js"></script>
+    <script src="js/directives/dropDevice.js"></script>
+    <!-- App Factories -->
+    <script src="js/factories/appFactory.js"></script>
+    <!-- App Filters -->
+    <script src="js/filters/range.js"></script>
+    <!-- App Model -->
+    <script src="js/models/scenarioModel.js"></script>
+    <script src="js/models/deviceModel.js"></script>
+    <script src="js/models/serviceModel.js"></script>
+    <script src="js/models/blockModel.js"></script>
+    <script src="js/models/IScenario.js"></script>
+    <script src="js/models/IEvent.js"></script>
+    <script src="js/models/ICondition.js"></script>
+    <script src="js/models/IAction.js"></script>
+  </body>
+</html>

@@ -1,0 +1,221 @@
+
+body{
+  font-size: 18px;
+  font-family: 'Nunito', sans-serif;
+}
+
+select:disabled{
+  color: graytext;
+}
+
+ul{
+  list-style-type: none;
+}
+
+li{
+  display: inline-block;
+}
+
+/** MENU **/
+input{
+  border: none;
+  border-radius: 25px;
+  min-width: 400px;
+  margin: 0px 20px;
+  color: black;
+  padding: 5px 10px;
+}
+
+ul#menu, ul#menu li{
+  background-color: #0088C1;
+}
+
+ul#menu li{
+  padding: 15px 20px;
+  color: white;
+}
+
+ul#menu li:nth-child(-n+3):hover{
+  background-color: #18ADAD;
+}
+
+/** Device Picker **/
+
+ul#picker{
+  margin: 0px auto;
+  text-align: center;
+}
+
+ul#picker li{
+  margin: 0px 5px;
+  padding: 0px;
+  height: 100px;
+  width: 100px;
+  background-size: 60px 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid #0088C1;
+  border-radius: 15px;
+} 
+
+ul#picker li#dimmer{
+  background-image: url(../images/dimmer.svg);
+}
+
+ul#picker li#switch{
+  background-image: url(../images/switch.svg);
+}
+
+ul#picker li#power_outlet{
+  background-image: url(../images/power_outlet.svg);
+}
+
+ul#picker li#unknown{
+  background-image: url(../images/unknown.svg);
+}
+
+ul#picker li#lamp{
+  background-image: url(../images/lamp.svg);
+}
+
+ul#picker li#window{
+  background-image: url(../images/window.svg);
+}
+
+.block-container{
+  margin-top: 20px;
+  border: 2px solid #0088C1;
+  border-radius: 25px;
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.block{
+  margin: 20px auto;
+  width: 60%;
+  min-width: 500px;
+  height: 100px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.block p.block-label, .block p.block-value{
+  display: inline-block;
+  margin: auto 10px;
+}
+
+.block p.block-label{
+  text-align: right;
+}
+
+.block p.block-value{
+  text-align: left;
+}
+
+.block.instantiated{
+  border: 1px solid #0088C1;
+}
+
+.block.droppable{
+  border: 1px dashed #0088C1;
+}
+
+/**.block:after, .block:before {
+  left: 98%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}*/
+
+.block:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-left-color: #ffffff;
+  border-width: 49px;
+  margin-top: -49px;
+}
+.block:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-left-color: #0088C1;
+  border-left-style: dashed;
+  border-width: 50px;
+  margin-top: -50px;
+}
+
+.block img{
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  left: 20px;
+  margin: 0px 10px;
+}
+
+/**Float properties*/
+.right{
+  float: right;
+}
+
+.center{
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.over{
+  border-width: 4px;
+}
+
+.modal-form{
+  font-family: Arial, Helvetica, sans-serif;
+  top: 59px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 99999;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  position: fixed;
+  z-index: 99999;
+}
+
+.modal-form > div {
+  width: 80%;
+  height: 70%;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  border: 2px solid #0088C1;
+  background: #fff;
+  text-align: center;
+}
+
+.modal-form > div button, .modal-form > div select {
+  border-radius: 10px;
+  border-style: solid; 
+}
+.modal-form > div select {
+  width: 60%;
+  text-align: center;
+  height: 10%;
+  margin: 15px 0px;
+}
+
+.modal-form > div button{
+  padding: 10px 20px;
+  margin: 5px 10px;
+  border-radius: 10px;
+}
+
+.modal-form img{
+  float: right;
+  display: block;
+  vertical-align: middle;
+}
