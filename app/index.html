@@ -11,10 +11,10 @@
   </head>
   <body data-ng-controller="app.AppCtrl">
     <ul id="menu">
-      <li>NEW</li>
-      <li>LOAD</li>
+      <li><a href="">NEW</a></li>
+      <li><a href="">LOAD</a></li>
       <li><a href="#/prop">TEMPLATES</a></li>
-      <li data-ng-click="appCtrl.saveScenario()">SAVE</li>
+      <li><a href="" data-ng-click="appCtrl.saveScenario()">SAVE</a></li>
       <li>NAME: <input type="text" data-ng-model="appCtrl.curScenario.name"></li>
     </ul>
     <div class="" ui-view></div>

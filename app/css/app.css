@@ -16,6 +16,14 @@ li{
   display: inline-block;
 }
 
+a{
+  text-transform: uppercase;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
 /** MENU **/
 input{
   border: none;
@@ -26,23 +34,37 @@ input{
   padding: 5px 10px;
 }
 
-ul#menu, ul#menu li{
+ul#menu{
+  margin: 0;
+}
+
+ul#menu a{
+  line-height: 60px;
+  display: block;
+}
+
+ul#menu, ul#menu li a{
   background-color: #0088C1;
 }
 
-ul#menu li{
-  padding: 15px 20px;
+ul#menu li a{
+  padding: 0px 20px;
   color: white;
 }
 
-ul#menu li:nth-child(-n+3):hover{
+ul#menu li:nth-child(-n+4) a:hover{
   background-color: #18ADAD;
+}
+
+ul#menu li{
+  color: white;
+  position: relative;
 }
 
 /** Device Picker **/
 
 ul#picker{
-  margin: 0px auto;
+  margin: 10px auto;
   text-align: center;
 }
 
@@ -82,6 +104,8 @@ ul#picker li#window{
   background-image: url(../images/window.svg);
 }
 
+/**BLOCKS**/
+
 .block-container{
   margin-top: 20px;
   border: 2px solid #0088C1;
@@ -93,7 +117,7 @@ ul#picker li#window{
 .block{
   margin: 20px auto;
   width: 60%;
-  min-width: 500px;
+  min-width: 300px;
   height: 100px;
   position: relative;
   background: #ffffff;
@@ -188,8 +212,8 @@ ul#picker li#window{
 
 .modal-form > div {
   width: 80%;
-  height: 70%;
-  margin: 10% auto;
+  height: 80%;
+  margin: 5% auto 0% auto;
   padding: 5px 20px 13px 20px;
   border-radius: 10px;
   border: 2px solid #0088C1;
@@ -205,7 +229,7 @@ ul#picker li#window{
   width: 60%;
   text-align: center;
   height: 10%;
-  margin: 15px 0px;
+  margin: 10px 0px;
 }
 
 .modal-form > div button{
