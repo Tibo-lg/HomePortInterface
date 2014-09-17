@@ -3,7 +3,7 @@ angular.module('app').factory('appFactory', [
     '$http', function ($http) {
         var appFactory = {};
 
-        var url_base = "http://localhost:8080/ECABackend";
+        var url_base = "";
 
         var transformScenario = function (scenario) {
             var event = new IEvent(scenario.event.Service.value_url, scenario.event.operator + scenario.event.value, null);

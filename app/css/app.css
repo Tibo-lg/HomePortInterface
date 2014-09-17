@@ -104,6 +104,10 @@ ul#picker li#window{
   background-image: url(../images/window.svg);
 }
 
+ul#picker li#pir{
+  background-image: url(../images/pir.svg);
+}
+
 /**BLOCKS**/
 
 .block-container{
@@ -138,11 +142,13 @@ ul#picker li#window{
 }
 
 .block.instantiated{
-  border: 1px solid #0088C1;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .block.droppable{
-  border: 1px dashed #0088C1;
+  border-width: 1px;
+  border-style: dashed;
 }
 
 /**.block:after, .block:before {
@@ -195,6 +201,20 @@ ul#picker li#window{
   border-width: 4px;
 }
 
+/*Decorating color*/
+.event{
+  border-color: #CD1F44;
+}
+
+.condition{
+  border-color: #F26D22;
+}
+
+.action{
+  border-color: #F2A71D;
+}
+
+/*Modal Form Decoration*/
 .modal-form{
   font-family: Arial, Helvetica, sans-serif;
   top: 59px;

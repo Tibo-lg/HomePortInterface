@@ -5,7 +5,7 @@ angular.module('app')
 
   var appFactory = {};
 
-  var url_base = "http://localhost:8080/ECABackend";
+  var url_base = "";
 
   var transformScenario = function(scenario): IScenario{
     

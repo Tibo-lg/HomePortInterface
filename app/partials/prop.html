@@ -7,7 +7,7 @@
     <p>If the house is in this state:</p>
     <div class="block droppable" data-dropfct="openModal" data-type="2" data-drop-device><p class="center">Drop a device here!</p></div>
     <div data-ng-repeat="block in appCtrl.curScenario.conditions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated">
-      <img class="center" src="images/switch.png"/>
+      <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
       <p>{{block.Device.location}}</p>
       <p>{{block.Device.desc}}</p>
       <p>{{block.operator}}  {{block.value}}</p>
