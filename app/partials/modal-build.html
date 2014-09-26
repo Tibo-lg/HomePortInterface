@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h3 class="modal-title">Block Builder</h3>
+</div>
+<div class="modal-body">
+  <div>
+    <p>Select which device:</p>
+    <select data-ng-model="modalBuildCtrl.newBlock.Device" data-ng-options="device.desc group by device.location for device in modalBuildCtrl.devices | filter: { type: modalBuildCtrl.curDeviceType}">
+      <option value="">Choose Device</option>
+    </select>
+    {{modalBuildCtrl.newBlock.Device.services[0].desc}}
+    <p>Select Which Service:</p>
+    <select data-ng-model="modalBuildCtrl.newBlock.Service" data-ng-disabled="!modalBuildCtrl.newBlock.Device" data-ng-options="service.desc for service in modalBuildCtrl.newBlock.Device.service">
+      <option value="">Choose Service</option>
+    </select>
+    <p>Select how the device should be in this block:</p>
+    <select data-ng-model="modalBuildCtrl.newBlock.operator" data-ng-disabled="!modalBuildCtrl.newBlock.Service || !(modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1)">
+      <option value="=" data-ng-selected="selected">=</option>
+      <option value="<">&lt;</option>
+      <option value=">">&gt;</option>
+      <option value="<=">&lt;=</option>
+      <option value=">=">&gt;=</option>
+    </select>
+    <select data-ng-model="modalBuildCtrl.newBlock.value" data-ng-disabled="!modalBuildCtrl.newBlock.Service" 
+      data-ng-options="n for n in [] | range:modalBuildCtrl.newBlock.Service.parameter.min:modalBuildCtrl.newBlock.Service.parameter.max:modalBuildCtrl.newBlock.Service.parameter.step" >
+      <option value="">Choose Value</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button class="ok" data-ng-click="modalBuildCtrl.ok()" data-ng-disabled="modalBuildCtrl.newBlock.value==null">Add Block</button>
+    <button class="cancel" data-ng-click="modalBuildCtrl.cancel()" >Cancel</button>
+  </div>
+</div>

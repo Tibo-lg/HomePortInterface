@@ -14,10 +14,15 @@ class BlockModel {
 
     constructor(id: string, device?: DeviceModel, service?: ServiceModel, value?: string, operator?: string) {
         this.id = id;
-//        this.Device = device;//LoadController.GetDeviceByServiceURL(window.DeviceList, serviceUrl);
-//        this.Service = service;//LoadController.GetServiceByUrl(window.DeviceList, serviceUrl);
-//        this.value = value;
-//        this.operator = operator;
+        this.Device = device;//LoadController.GetDeviceByServiceURL(window.DeviceList, serviceUrl);
+        this.Service = service;//LoadController.GetServiceByUrl(window.DeviceList, serviceUrl);
+        this.value = value;
+        this.operator = operator;
+    }
+
+    public CreateCopy()
+    {
+      return new BlockModel(this.id, this.Device, this.Service, this.value, this.operator);
     }
 } 
 
@@ -52,13 +57,13 @@ class ConditionBlockModel extends BlockModel {
 
 class EventBlockModel extends BlockModel {
 
-    private Duration: number;
+    private Duration: string;
 
     /*public static CreatefromScenarioBlock(block: ScenarioBlockModel, seqNumber, duration, timeRelation) {
         return new ScenarioEventModel(block.Service.Url, block.value, seqNumber, duration, timeRelation);
     }*/
 
-    constructor(id: string, device :DeviceModel, service :ServiceModel, value : any, operator : string, duration : number) {
+    constructor(id: string, device :DeviceModel, service :ServiceModel, value : any, operator : string, duration : string) {
         super(id, device, service, value, operator);
 
         this.Duration = duration;

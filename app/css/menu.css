@@ -1,0 +1,37 @@
+/** MENU **/
+input{
+  border: none;
+  border-radius: 25px;
+  min-width: 400px;
+  margin: 0px 20px;
+  color: black;
+  padding: 5px 10px;
+}
+
+ul#menu{
+  margin: 0;
+}
+
+ul#menu a{
+  line-height: 60px;
+  display: block;
+}
+
+ul#menu, ul#menu li a{
+  background-color: #0088C1;
+}
+
+ul#menu li a{
+  padding: 0px 20px;
+  color: white;
+}
+
+ul#menu li:nth-child(-n+4) a:hover{
+  background-color: #18ADAD;
+}
+
+ul#menu li{
+  color: white;
+  position: relative;
+}
+

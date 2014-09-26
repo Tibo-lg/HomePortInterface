@@ -14,11 +14,14 @@ var BlockType;
 var BlockModel = (function () {
     function BlockModel(id, device, service, value, operator) {
         this.id = id;
-        //        this.Device = device;//LoadController.GetDeviceByServiceURL(window.DeviceList, serviceUrl);
-        //        this.Service = service;//LoadController.GetServiceByUrl(window.DeviceList, serviceUrl);
-        //        this.value = value;
-        //        this.operator = operator;
+        this.Device = device; //LoadController.GetDeviceByServiceURL(window.DeviceList, serviceUrl);
+        this.Service = service; //LoadController.GetServiceByUrl(window.DeviceList, serviceUrl);
+        this.value = value;
+        this.operator = operator;
     }
+    BlockModel.prototype.CreateCopy = function () {
+        return new BlockModel(this.id, this.Device, this.Service, this.value, this.operator);
+    };
     return BlockModel;
 })();
 

@@ -6,6 +6,10 @@
 //################## GraphUtils ###################
 //################## Controllers ###################
 /// <reference path='controllers/appCtrl.ts' />
+/// <reference path='controllers/modalBuildCtrl.ts' />
+/// <reference path='controllers/modalErrorCtrl.ts' />
+/// <reference path='controllers/modalChoiceCtrl.ts' />
+/// <reference path='controllers/modalLoadCtrl.ts' />
 
 //################## Directives ###################
 /// <reference path='directives/dragDevice.ts' />

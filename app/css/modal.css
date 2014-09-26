@@ -1,0 +1,67 @@
+/** MODAL STYLING **/
+
+.modal-header.error{
+  background-color: #D2322D;
+}
+
+.modal-body select{
+  background-color: white;
+  border-radius: 25px;
+  margin-bottom: 10px;
+  padding: 10px 10px;
+}
+
+.modal-body button{
+  display: block;
+  margin: 0px auto 15px auto;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border-style: solid;
+  background-color: white;
+}
+
+.modal-footer button{
+  display: inline-block;
+}
+
+.modal-body button:hover{
+  background-color: LightGray;
+}
+.modal-footer button{
+  border-radius: 15px;
+  background-color: white;
+  border-style: solid;
+  padding: 5px 10px;
+  min-width: 30px;
+}
+
+.modal-footer button.ok, .modal-footer button.cancel{
+  border-style: none;
+  color: white;
+}
+
+.modal-footer button.ok{
+  background-color: #47A447;
+}
+
+.modal-footer button.ok:disabled{
+  background-color: LightGray;
+}
+
+.modal-footer button.cancel{
+  background-color: #D2322D;
+}
+
+/**Modal Load**/
+.modal-body .panel-body{
+  padding: 0;
+}
+
+.modal-body .panel-body div.load-element{
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.modal-body .panel-body div.load-element:nth-child(n+3){
+  border-top: 1px solid #ddd;
+}

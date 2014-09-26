@@ -3,15 +3,17 @@
 var app;
 (function (app) {
     var AppCtrl = (function () {
-        function AppCtrl($scope, $location, appFactory) {
+        function AppCtrl($scope, $location, $modal, appFactory) {
             var _this = this;
             $scope.appCtrl = this;
+            this.location = $location;
+            this.apply = $scope.$apply;
+            this.modal = $modal;
             this.appFactory = appFactory;
             this.curScenario = new ScenarioModel("", 0, null, new Array(), new Array());
             this.deviceTypes = new Array();
             this.updateDevices();
             this.newBlock = new BlockModel("0");
-            this.showModal = 0;
             this.curDeviceType = "";
             $scope.openModal = function (blockType) {
                 _this.openModal(blockType);
@@ -31,39 +33,76 @@ var app;
                     }
                 }
             }, function (error) {
+                console.error("Could not load device list");
+            });
+        };
+
+        AppCtrl.prototype.updateScenarios = function () {
+            var _this = this;
+            this.appFactory.getScenarios(this.devices).then(function (data) {
+                _this.scenarios = data;
+            }, function (error) {
+                console.error("Could not load scenario list");
             });
         };
 
         AppCtrl.prototype.openModal = function (blockType) {
-            this.newBlock = new BlockModel("0");
-            this.newBlock.operator = '=';
-            this.showModal = blockType;
-            console.log("Cur Device Type: " + this.curDeviceType);
+            var _this = this;
+            var modalInstance = this.modal.open({
+                templateUrl: 'partials/modal-build.html',
+                controller: 'app.ModalBuildCtrl',
+                size: 'lg',
+                resolve: {
+                    curBlock: function () {
+                        return null;
+                    },
+                    devices: function () {
+                        return _this.devices;
+                    },
+                    curDeviceType: function () {
+                        return _this.curDeviceType;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (newBlock) {
+                switch (blockType) {
+                    case 0 /* EVENT */:
+                        _this.curScenario.event = newBlock;
+                        break;
+                    case 1 /* CONDITION */:
+                        _this.curScenario.conditions.push(newBlock);
+                        break;
+                    case 2 /* ACTION */:
+                        _this.curScenario.actions.push(newBlock);
+                        break;
+                }
+            });
+        };
+
+        AppCtrl.prototype.openBlock = function (curBlock) {
+            var _this = this;
+            var modalInstance = this.modal.open({
+                templateUrl: 'partials/modal-build.html',
+                controller: 'app.ModalBuildCtrl',
+                size: 'lg',
+                resolve: {
+                    curBlock: function () {
+                        return curBlock;
+                    },
+                    devices: function () {
+                        return _this.devices;
+                    },
+                    curDeviceType: function () {
+                        return curBlock.Device.type;
+                    }
+                }
+            });
         };
 
         AppCtrl.prototype.setCurDeviceType = function (deviceType) {
             this.curDeviceType = deviceType;
             console.log("Cur Device Type: " + this.curDeviceType);
-        };
-
-        AppCtrl.prototype.addBlock = function () {
-            if (this.showModal == 1) {
-                this.newBlock.id = "0";
-                this.curScenario.event = this.newBlock;
-            } else if (this.showModal == 2) {
-                this.newBlock.id = this.curScenario.conditions.length.toString();
-                this.curScenario.conditions.push(this.newBlock);
-            } else if (this.showModal == 3) {
-                this.newBlock.id = this.curScenario.actions.length.toString();
-                this.curScenario.actions.push(this.newBlock);
-            }
-            console.log(this.curScenario);
-            this.showModal = 0;
-        };
-
-        AppCtrl.prototype.resetBlock = function () {
-            this.newBlock = new BlockModel("0");
-            this.showModal = 0;
         };
 
         AppCtrl.prototype.removeBlock = function (block) {
@@ -81,15 +120,58 @@ var app;
         };
 
         AppCtrl.prototype.saveScenario = function () {
-            if (this.curScenario.name != null) {
+            if (this.curScenario.name != null && /\S/.test(this.curScenario.name)) {
                 this.curScenario.id = this.curScenario.name.replace(/ /g, '');
                 this.appFactory.setScenario(this.curScenario);
+            } else {
+                this.modal.open({
+                    templateUrl: 'partials/modal-error.html',
+                    controller: 'app.ModalErrorCtrl',
+                    size: 'sm',
+                    resolve: {
+                        msg: function () {
+                            return "Please enter a scenario name";
+                        }
+                    }
+                });
             }
         };
-        AppCtrl.$inject = ['$scope', '$location'];
+
+        AppCtrl.prototype.newClick = function () {
+            var _this = this;
+            var modalInstance = this.modal.open({
+                templateUrl: 'partials/modal-choice.html',
+                controller: 'app.ModalChoiceCtrl',
+                size: 'lg'
+            });
+            modalInstance.result.then(function (route) {
+                _this.location.path(route);
+            });
+        };
+
+        AppCtrl.prototype.load = function () {
+            var _this = this;
+            this.updateScenarios();
+            var modalInstance = this.modal.open({
+                templateUrl: 'partials/modal-load.html',
+                controller: 'app.ModalLoadCtrl',
+                size: 'lg',
+                resolve: {
+                    model: function () {
+                        return _this;
+                    }
+                }
+            });
+            modalInstance.result.then(function (object) {
+                if (object instanceof ScenarioModel) {
+                    _this.curScenario = object;
+                }
+            });
+        };
+        AppCtrl.$inject = ['$scope', '$location', '$modal', 'appFactory'];
         return AppCtrl;
     })();
     app.AppCtrl = AppCtrl;
 })(app || (app = {}));
 
-app.registerController('AppCtrl', ['$scope', '$location', 'appFactory']);
+app.registerController('AppCtrl', ['$scope', '$location', '$modal', 'appFactory']);

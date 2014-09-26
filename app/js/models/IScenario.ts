@@ -1,9 +1,9 @@
 class IScenario{
-  private name: string;
-  private id: string;
-  private event: IEvent;
-  private conditions: Array<ICondition>;
-  private actions: Array<IAction>;
+  public name: string;
+  public id: string;
+  public event: IEvent;
+  public conditions: Array<ICondition>;
+  public actions: Array<IAction>;
 
   constructor(name, id, event, conditions, actions){
     this.name = name;

@@ -5,8 +5,8 @@
 <div class="col-md-4">
   <div class="block-container event">
     <p>When this happens</p>
-    <div class="block droppable event" data-dropfct="openModal" data-type="1" data-ng-show="!appCtrl.curScenario.event" data-drop-device><p class="center">Drop a device here!</p></div>
-    <div class="block instantiated event" data-ng-show="appCtrl.curScenario.event" ng-dblclick="appCtrl.removeBlock(appCtrl.curScenario.event)">
+    <div class="block droppable event" data-dropfct="openModal" data-type="0" data-ng-show="!appCtrl.curScenario.event" data-drop-device><p class="center">Drop a device here!</p></div>
+    <div class="block instantiated event" data-ng-show="appCtrl.curScenario.event" ng-dblclick="appCtrl.removeBlock(appCtrl.curScenario.event)" ng-click="appCtrl.openBlock(appCtrl.curScenario.event)">
       <img class="center" data-ng-src="images/{{appCtrl.curScenario.event.Device.type | lowercase}}.svg"/>
       <p>{{appCtrl.curScenario.event.Device.location}}</p>
       <p>{{appCtrl.curScenario.event.Device.desc}}</p>
@@ -17,7 +17,7 @@
 <div class="col-md-4">
   <div class="block-container condition">
     <p>If the house is in this state:</p>
-    <div class="block droppable condition" data-dropfct="openModal" data-type="2" data-drop-device><p class="center">Drop a device here!</p></div>
+    <div class="block droppable condition" data-dropfct="openModal" data-type="1" data-drop-device><p class="center">Drop a device here!</p></div>
     <div data-ng-repeat="block in appCtrl.curScenario.conditions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated condition">
       <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
       <p>{{block.Device.location}}</p>
@@ -29,39 +29,12 @@
 <div class="col-md-4">
   <div class="block-container action">
     <p>Then do this:</p>
-    <div class="block droppable action" data-dropfct="openModal" data-type="3" data-drop-device><p class="center">Drop a device here!</p></div>
+    <div class="block droppable action" data-dropfct="openModal" data-type="2" data-drop-device><p class="center">Drop a device here!</p></div>
     <div data-ng-repeat="block in appCtrl.curScenario.actions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated action">
       <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
       <p>{{block.Device.location}}</p>
       <p>{{block.Device.desc}}</p>
       <p>{{block.operator}}  {{block.value}}</p>
     </div>
-  </div>
-</div>
-<div class="modal-form" data-ng-show="appCtrl.showModal!=0">
-  <div>
-    <p>Select which device:</p>
-    <select data-ng-model="appCtrl.newBlock.Device" data-ng-options="device.desc group by device.location for device in appCtrl.devices | filter: { type: appCtrl.curDeviceType}">
-      <option value="">Choose Device</option>
-    </select>
-    {{appCtrl.newBlock.Device.services[0].desc}}
-    <p>Select Which Service:</p>
-    <select data-ng-model="appCtrl.newBlock.Service" data-ng-disabled="!appCtrl.newBlock.Device" data-ng-options="service.desc for service in appCtrl.newBlock.Device.service">
-      <option value="">Choose Service</option>
-    </select>
-    <p>Select how the device should be to start the scenario:</p>
-    <select data-ng-model="appCtrl.newBlock.operator" data-ng-disabled="!appCtrl.newBlock.Service || !(appCtrl.newBlock.Service.parameter.max - appCtrl.newBlock.Service.parameter.min > 1)">
-      <option value="=" data-ng-selected="selected">=</option>
-      <option value="<">&lt;</option>
-      <option value=">">&gt;</option>
-      <option value="<=">&lt;=</option>
-      <option value=">=">&gt;=</option>
-    </select>
-    <select data-ng-model="appCtrl.newBlock.value" data-ng-disabled="!appCtrl.newBlock.Service" 
-      data-ng-options="n for n in [] | range:appCtrl.newBlock.Service.parameter.min:appCtrl.newBlock.Service.parameter.max:appCtrl.newBlock.Service.parameter.step" >
-      <option value="">Choose Value</option>
-    </select><br/>
-    <button data-ng-click="appCtrl.addBlock()" >Add Block</button>
-    <button data-ng-click="appCtrl.resetBlock()" >Cancel</button>
   </div>
 </div>

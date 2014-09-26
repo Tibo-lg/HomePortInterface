@@ -1,20 +1,20 @@
 class ServiceModel {
-    private desc: string;
-    private id: string;
-    private type: string;
-    private url: string;
-    private value_url: string;
-    private parameter: Parameter;
+    public desc: string;
+    public id: string;
+    public type: string;
+    public url: string;
+    public value_url: string;
+    public parameter: Parameter;
 
     constructor() {
     }
 }
 
 class Parameter{
-    private unit: string;
-    private step: number;
-    private min: number;
-    private max: number;
+    public unit: string;
+    public step: number;
+    public min: number;
+    public max: number;
 
     constructor(){
 

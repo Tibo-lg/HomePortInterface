@@ -7,6 +7,7 @@ module app {
     appCtrl : AppCtrl;
     openModal: Function;
     setCurDeviceType: Function;
+    $apply: Function;
   }
 
   export class AppCtrl {
@@ -17,19 +18,22 @@ module app {
     private curScenario: ScenarioModel;
     private devices: Array<DeviceModel>;
     private newBlock: BlockModel;
-    private showModal: number;
+    private modal: any;
     private deviceTypes: Array<string>;
     private curDeviceType: string;
+    private apply: Function;
 
-    static $inject = ['$scope', '$location'];
-    constructor($scope: AppScope, $location, appFactory) {
+    static $inject = ['$scope', '$location', '$modal', 'appFactory'];
+    constructor($scope: AppScope, $location, $modal, appFactory) {
       $scope.appCtrl = this;
+      this.location = $location;
+      this.apply = $scope.$apply;
+      this.modal = $modal;
       this.appFactory = appFactory;
       this.curScenario = new ScenarioModel("", 0, null, new Array<ConditionBlockModel>(), new Array<ActionBlockModel>());
       this.deviceTypes = new Array<string>();
       this.updateDevices();
       this.newBlock = new BlockModel("0");
-      this.showModal = 0;
       this.curDeviceType = "";
       $scope.openModal = (blockType)=>{ this.openModal(blockType);};
       $scope.setCurDeviceType = (blockType)=>{ this.setCurDeviceType(blockType);};
@@ -47,40 +51,75 @@ module app {
 	}
       },
       (error)=>{
+	console.error("Could not load device list");
+      });
+    }
 
+    private updateScenarios(){
+      this.appFactory.getScenarios(this.devices)
+      .then((data)=>{
+	  this.scenarios = data;
+      },
+      (error)=>{
+	console.error("Could not load scenario list");
       });
     }
 
     private openModal(blockType){
-      this.newBlock = new BlockModel("0");
-      this.newBlock.operator = '=';
-      this.showModal = blockType;
-      console.log("Cur Device Type: " + this.curDeviceType);
+      var modalInstance = this.modal.open({
+	templateUrl: 'partials/modal-build.html',
+	controller: 'app.ModalBuildCtrl',
+	size: 'lg',
+	resolve: {
+	  curBlock: ()=>{
+	    return null;
+	  },
+	  devices: ()=>{
+	    return this.devices;
+	  },
+	  curDeviceType: ()=>{
+	    return this.curDeviceType;
+	  }
+	}
+      });
+
+      modalInstance.result.then( (newBlock)=>{
+	switch(blockType){
+	  case BlockType.EVENT:
+	    this.curScenario.event = newBlock;
+	    break;
+	  case BlockType.CONDITION:
+	    this.curScenario.conditions.push(newBlock);
+	    break;
+	  case BlockType.ACTION:
+	    this.curScenario.actions.push(newBlock);
+	    break;
+	}
+      });
+    }
+
+    private openBlock(curBlock){
+      var modalInstance = this.modal.open({
+	templateUrl: 'partials/modal-build.html',
+	controller: 'app.ModalBuildCtrl',
+	size: 'lg',
+	resolve: {
+	  curBlock: ()=>{
+	    return curBlock;
+	  },
+	  devices: ()=>{
+	    return this.devices;
+	  },
+	  curDeviceType: ()=>{
+	    return curBlock.Device.type;
+	  }
+	}
+      });
     }
 
     private setCurDeviceType(deviceType){
       this.curDeviceType = deviceType;
       console.log("Cur Device Type: " + this.curDeviceType);
-    }
-
-    private addBlock(){
-      if(this.showModal == 1){
-	this.newBlock.id = "0";
-	this.curScenario.event = this.newBlock;
-      }else if(this.showModal == 2){
-	this.newBlock.id = this.curScenario.conditions.length.toString();
-	this.curScenario.conditions.push(this.newBlock);
-      }else if(this.showModal == 3){
-	this.newBlock.id = this.curScenario.actions.length.toString();
-	this.curScenario.actions.push(this.newBlock);
-      }
-      console.log(this.curScenario);
-      this.showModal = 0;
-    }
-
-    private resetBlock(){
-      this.newBlock = new BlockModel("0");
-      this.showModal = 0;
     }
 
     private removeBlock(block){
@@ -98,12 +137,51 @@ module app {
     }
 
     private saveScenario(){
-      if(this.curScenario.name!=null){
+      if(this.curScenario.name != null && /\S/.test(this.curScenario.name)){
 	this.curScenario.id = this.curScenario.name.replace(/ /g, '');
 	this.appFactory.setScenario(this.curScenario);
+      }else{
+	this.modal.open({
+	  templateUrl: 'partials/modal-error.html',
+	  controller: 'app.ModalErrorCtrl',
+	  size: 'sm',
+	  resolve: {
+	    msg: ()=>{
+	      return "Please enter a scenario name";
+	    }
+	  }
+	});
       }
+    }
+
+    private newClick(){
+      var modalInstance = this.modal.open({
+	templateUrl: 'partials/modal-choice.html',
+	controller: 'app.ModalChoiceCtrl',
+	size: 'lg'
+      });
+      modalInstance.result.then( (route)=>{
+	this.location.path(route);
+      });
+    }
+
+    private load(){
+      this.updateScenarios();
+      var modalInstance = this.modal.open({
+	templateUrl: 'partials/modal-load.html',
+	controller: 'app.ModalLoadCtrl',
+	size: 'lg',
+	resolve: {
+	  model: () => {return this;}
+	}
+      });
+      modalInstance.result.then( (object)=>{
+	if(object instanceof ScenarioModel){
+	  this.curScenario = object;
+	}
+      });
     }
   }
 }
 
-app.registerController('AppCtrl', ['$scope', '$location', 'appFactory']); 
+app.registerController('AppCtrl', ['$scope', '$location', '$modal', 'appFactory']); 

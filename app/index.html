@@ -8,13 +8,17 @@
     <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/menu.css" />
+    <link rel="stylesheet" href="css/picker.css" />
+    <link rel="stylesheet" href="css/block.css" />
+    <link rel="stylesheet" href="css/modal.css" />
   </head>
   <body data-ng-controller="app.AppCtrl">
     <ul id="menu">
-      <li><a href="">NEW</a></li>
-      <li><a href="">LOAD</a></li>
-      <li><a href="#/prop">TEMPLATES</a></li>
+      <li><a data-ng-click="appCtrl.newClick()" href="">NEW</a></li>
+      <li><a href="" data-ng-click="appCtrl.load()">LOAD</a></li>
       <li><a href="" data-ng-click="appCtrl.saveScenario()">SAVE</a></li>
+      <li><a href="" data-ng-click="appCtrl.saveScenario()">UPLOAD</a></li>
       <li>NAME: <input type="text" data-ng-model="appCtrl.curScenario.name"></li>
     </ul>
     <div class="" ui-view></div>
@@ -41,6 +45,10 @@
     <script src="js/app.js"></script>
     <!-- App Controllers -->
     <script src="js/controllers/appCtrl.js"></script>
+    <script src="js/controllers/modalBuildCtrl.js"></script>
+    <script src="js/controllers/modalErrorCtrl.js"></script>
+    <script src="js/controllers/modalChoiceCtrl.js"></script>
+    <script src="js/controllers/modalLoadCtrl.js"></script>
     <!-- App Directives -->
     <script src="js/directives/dragDevice.js"></script>
     <script src="js/directives/dropDevice.js"></script>

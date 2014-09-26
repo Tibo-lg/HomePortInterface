@@ -7,12 +7,12 @@
 //  WINDOW_SENSOR,
 //}
 var DeviceModel = (function () {
-    function DeviceModel(id, description, location, type, services) {
+    function DeviceModel(id, description, location, type, service) {
         this.id = id;
         this.desc = description;
         this.location = location;
         this.type = type;
-        this.services = services;
+        this.service = service;
     }
     return DeviceModel;
 })();

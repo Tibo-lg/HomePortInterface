@@ -13,13 +13,13 @@ class DeviceModel {
     public id: string;
     public location: string;
     public type: string;
-    public services: Array<ServiceModel>;
+    public service: Array<ServiceModel>;
 
-    constructor(id: string, description: string, location: string, type: string, services: Array<ServiceModel>) {
+    constructor(id: string, description: string, location: string, type: string, service: Array<ServiceModel>) {
         this.id = id;
         this.desc = description;
         this.location = location;
         this.type = type;
-        this.services = services;
+        this.service = service;
     }
 }

@@ -1,0 +1,89 @@
+/**BLOCKS**/
+
+.block-container{
+  margin-top: 20px;
+  border: 2px solid #0088C1;
+  border-radius: 25px;
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.block{
+  margin: 20px auto;
+  width: 60%;
+  min-width: 270px;
+  height: 100px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.block p.block-label, .block p.block-value{
+  display: inline-block;
+  margin: auto 10px;
+}
+
+.block p.block-label{
+  text-align: right;
+}
+
+.block p.block-value{
+  text-align: left;
+}
+
+.block.instantiated{
+  border-width: 1px;
+  border-style: solid;
+}
+
+.block.droppable{
+  border-width: 1px;
+  border-style: dashed;
+}
+
+/**.block:after, .block:before {
+  left: 98%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}*/
+
+.block:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-left-color: #ffffff;
+  border-width: 49px;
+  margin-top: -49px;
+}
+.block:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-left-color: #0088C1;
+  border-left-style: dashed;
+  border-width: 50px;
+  margin-top: -50px;
+}
+
+.block img{
+  width: 20%;
+  height: 50%;
+  position: absolute;
+  left: 0;
+  margin: 0px 5px;
+}
+
+/*Decorating color*/
+.event{
+  border-color: #CD1F44;
+}
+
+.condition{
+  border-color: #F26D22;
+}
+
+.action{
+  border-color: #F2A71D;
+}
+

@@ -1,0 +1,47 @@
+/** Device Picker **/
+
+ul#picker{
+  margin: 10px auto;
+  text-align: center;
+}
+
+ul#picker li{
+  margin: 0px 5px;
+  padding: 0px;
+  height: 100px;
+  width: 100px;
+  background-size: 60px 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid #0088C1;
+  border-radius: 15px;
+} 
+
+ul#picker li#dimmer{
+  background-image: url(../images/dimmer.svg);
+}
+
+ul#picker li#switch{
+  background-image: url(../images/switch.svg);
+}
+
+ul#picker li#power_outlet{
+  background-image: url(../images/power_outlet.svg);
+}
+
+ul#picker li#unknown{
+  background-image: url(../images/unknown.svg);
+}
+
+ul#picker li#lamp{
+  background-image: url(../images/lamp.svg);
+}
+
+ul#picker li#window{
+  background-image: url(../images/window.svg);
+}
+
+ul#picker li#pir{
+  background-image: url(../images/pir.svg);
+}
+
