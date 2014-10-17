@@ -3,25 +3,26 @@
   <li id="unknown" draggable="true" data-dragfct="setCurDeviceType" data-devicetype="" data-drag-device></li>
 </ul>
 <div class="col-md-6">
-  <div class="block-container event">
+  <div class="block-container condition">
     <p>If the house is in this state:</p>
-    <div class="block droppable event" data-dropfct="openModal" data-type="2" data-drop-device><p class="center">Drop a device here!</p></div>
-    <div data-ng-repeat="block in appCtrl.curScenario.conditions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated">
-      <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
-      <p>{{block.Device.location}}</p>
-      <p>{{block.Device.desc}}</p>
-      <p>{{block.operator}}  {{block.value}}</p>
+    <div class="block droppable condition" data-dropfct="openModal" data-type="1" data-drop-device data-ng-show="appCtrl.curScenario.conditions.length == 0"><p class="center">Drop a device here!</p></div>
+    <div ng-click="appCtrl.openBlock(appCtrl.curScenario.conditions[0], 1)"  class="block instantiated condition" data-ng-show="appCtrl.curScenario.conditions.length != 0">
+      <img class="center icon" data-ng-src="images/{{appCtrl.curScenario.conditions[0].deviceType | lowercase}}.svg"/>
+      <p>{{(appCtrl.curScenario.conditions[0].Device.location) || "---"}}</p>
+      <p>{{(appCtrl.curScenario.conditions[0].Device.desc) || "---"}}</p>
+      <p>{{(appCtrl.curScenario.conditions[0].Service.desc) || "---"}} {{appCtrl.curScenario.conditions[0].operator}}  {{appCtrl.curScenario.conditions[0].value}}</p>
     </div>
   </div>
 </div>
 <div class="col-md-6">
   <div class="block-container action">
     <p>Then the house should never perform these actions:</p>
-    <div class="block droppable action" data-dropfct="openModal" data-type="3" data-drop-device><p class="center">Drop a device here!</p></div>
-    <div data-ng-repeat="block in appCtrl.curScenario.actions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated action">
-      <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
-      <p class="center block-label">Location:<br/>Device:<br/>Never set to:</p>
-      <p class="center block-value">{{block.Device.location}}<br/>{{block.Device.desc}}<br/>{{block.operator}}  {{block.value}}</p>
+    <div class="block droppable action" data-dropfct="openModal" data-type="2" data-ng-show="!appCtrl.curScenario.actions[0]" data-drop-device><p class="center">Drop a device here!</p></div>
+    <div ng-click="appCtrl.openBlock(appCtrl.curScenario.actions[0], 2)"  class="block instantiated action" data-ng-show="appCtrl.curScenario.actions[0]">
+      <img class="center icon" data-ng-src="images/{{appCtrl.curScenario.actions[0].deviceType | lowercase}}.svg"/>
+      <p>{{(appCtrl.curScenario.actions[0].Device.location) || "---"}}</p>
+      <p>{{(appCtrl.curScenario.actions[0].Device.desc) || "---"}}</p>
+      <p><small>Set</small> {{(appCtrl.curScenario.actions[0].Service.desc) || "---"}} <small>to</small> {{appCtrl.curScenario.actions[0].value}}</p>
     </div>
   </div>
 </div>

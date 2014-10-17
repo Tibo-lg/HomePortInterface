@@ -10,6 +10,8 @@
 /// <reference path='controllers/modalErrorCtrl.ts' />
 /// <reference path='controllers/modalChoiceCtrl.ts' />
 /// <reference path='controllers/modalLoadCtrl.ts' />
+/// <reference path='controllers/modalEditCtrl.ts' />
+/// <reference path='controllers/modalSuggCtrl.ts' />
 
 //################## Directives ###################
 /// <reference path='directives/dragDevice.ts' />
@@ -31,6 +33,7 @@
 /// <reference path='models/IScenario.ts'/>
 /// <reference path='models/IAction.ts'/>
 /// <reference path='models/ICondition.ts'/>
+/// <reference path='models/IProperty.ts'/>
 //################# App ###########################
 /// <reference path='app.ts' />
  

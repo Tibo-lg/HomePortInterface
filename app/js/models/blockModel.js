@@ -12,27 +12,37 @@ var BlockType;
 })(BlockType || (BlockType = {}));
 
 var BlockModel = (function () {
-    function BlockModel(id, device, service, value, operator) {
+    function BlockModel(id, device, service, value, operator, deviceType) {
         this.id = id;
         this.Device = device; //LoadController.GetDeviceByServiceURL(window.DeviceList, serviceUrl);
         this.Service = service; //LoadController.GetServiceByUrl(window.DeviceList, serviceUrl);
         this.value = value;
         this.operator = operator;
+        this.deviceType = deviceType;
     }
     BlockModel.prototype.CreateCopy = function () {
-        return new BlockModel(this.id, this.Device, this.Service, this.value, this.operator);
+        return new BlockModel(this.id, this.Device, this.Service, this.value, this.operator, this.deviceType);
+    };
+
+    BlockModel.prototype.setToBlock = function (b) {
+        this.id = b.id;
+        this.Device = b.Device;
+        this.Service = b.Service;
+        this.value = b.value;
+        this.operator = b.operator;
+        this.deviceType = b.deviceType;
     };
     return BlockModel;
 })();
 
 var ActionBlockModel = (function (_super) {
     __extends(ActionBlockModel, _super);
-    function ActionBlockModel(id, device, service, value, operator, seqNumber) {
-        _super.call(this, id, device, service, value, operator);
+    function ActionBlockModel(id, device, service, value, operator, seqNumber, deviceType) {
+        _super.call(this, id, device, service, value, operator, deviceType);
         this.SeqNumber = seqNumber;
     }
     ActionBlockModel.prototype.CreateCopy = function () {
-        return new ActionBlockModel(this.id, this.Device, this.Service, this.value, this.operator, this.SeqNumber);
+        return new ActionBlockModel(this.id, this.Device, this.Service, this.value, this.operator, this.SeqNumber, this.deviceType);
     };
     return ActionBlockModel;
 })(BlockModel);
@@ -42,11 +52,11 @@ var ConditionBlockModel = (function (_super) {
     /* public static CreatefromScenarioBlock(block: ScenarioBlockModel) {
     return new ScenarioConditionModel(block.Service.Url, block.value);
     }*/
-    function ConditionBlockModel(id, device, service, value, operator) {
-        _super.call(this, id, device, service, value, operator);
+    function ConditionBlockModel(id, device, service, value, operator, deviceType) {
+        _super.call(this, id, device, service, value, operator, deviceType);
     }
     ConditionBlockModel.prototype.CreateCopy = function () {
-        return new ConditionBlockModel(this.id, this.Device, this.Service, this.value, this.operator);
+        return new ConditionBlockModel(this.id, this.Device, this.Service, this.value, this.operator, this.deviceType);
     };
     return ConditionBlockModel;
 })(BlockModel);
@@ -56,13 +66,18 @@ var EventBlockModel = (function (_super) {
     /*public static CreatefromScenarioBlock(block: ScenarioBlockModel, seqNumber, duration, timeRelation) {
     return new ScenarioEventModel(block.Service.Url, block.value, seqNumber, duration, timeRelation);
     }*/
-    function EventBlockModel(id, device, service, value, operator, duration) {
-        _super.call(this, id, device, service, value, operator);
+    function EventBlockModel(id, device, service, value, operator, duration, deviceType) {
+        _super.call(this, id, device, service, value, operator, deviceType);
 
         this.Duration = duration;
     }
     EventBlockModel.prototype.CreateCopy = function () {
-        return new EventBlockModel(this.id, this.Device, this.Service, this.value, this.operator, this.Duration);
+        return new EventBlockModel(this.id, this.Device, this.Service, this.value, this.operator, this.Duration, this.deviceType);
+    };
+
+    EventBlockModel.prototype.setToBlock = function (b) {
+        this.Duration = b.Duration;
+        _super.prototype.setToBlock.call(this, b);
     };
     return EventBlockModel;
 })(BlockModel);

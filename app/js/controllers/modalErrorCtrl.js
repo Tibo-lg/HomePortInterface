@@ -7,7 +7,6 @@ var app;
             $scope.modalErrorCtrl = this;
             this.msg = msg;
             this.modalInstance = $modalInstance;
-            console.log(this);
         }
         ModalErrorCtrl.prototype.ok = function () {
             this.modalInstance.close();

@@ -1,21 +1,69 @@
 <div class="modal-header">
   <h3 class="modal-title">LOAD</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body load">
   <accordion close-others="oneAtATime">
   <accordion-group heading="Scenarios">
-  <div class="load-element" data-ng-show="!modalLoadCtrl.model.scenarios">
+  <div class="load-element" data-ng-show="modalLoadCtrl.model.scenarios.length == 0">
     No Scenario
   </div>
-  <div class="load-element" data-ng-repeat="scenario in modalLoadCtrl.model.scenarios" data-ng-click="modalLoadCtrl.onClick(scenario)">
-    {{scenario.name}}
+  <div class="load-element" data-ng-repeat="scenario in modalLoadCtrl.model.scenarios">
+    <div class="scenario-main">
+      <label class="center unfold" for="unfold-{{scenario.id}} " onclick="">{{scenario.name}}</label>
+      <div class="controls">
+	<div class="activate-picker center">
+	  <input type="checkbox" id="active-{{scenario.id}}" data-ng-model="scenario.active" data-ng-change="modalLoadCtrl.model.onActiveChange('scenarios', scenario.id, scenario.active)"></input>
+	  <label for="active-{{scenario.id}}" onclick=""></label>
+	</div>
+	<button class="center" data-ng-click="modalLoadCtrl.onClick(scenario)">Edit</button>
+	<button class="delete center" data-ng-click="modalLoadCtrl.model.removeScenario(scenario.id)">Delete</button>
+      </div>
+    </div>
+    <input class="unfold" type="checkbox" id="unfold-{{scenario.id}}"></input>
+    <p class="scenario-desc">
+      {{scenario.desc}}
+    </p>
   </div>
   </accordion-group>
   <accordion-group heading="Properties">
-  pjpcasc
+  <div class="load-element" data-ng-show="modalLoadCtrl.model.properties.length == 0">
+    No Templates
+  </div>
+  <div class="load-element" data-ng-repeat="property in modalLoadCtrl.model.properties">
+    <div class="scenario-main">
+      <label class="center unfold" for="unfold-{{property.id}} " onclick="">{{property.name}}</label>
+      <div class="controls">
+	<div class="activate-picker center">
+	  <input type="checkbox" id="active-{{property.id}}" data-ng-model="property.active" data-ng-change="modalLoadCtrl.model.onActiveChange('properties', property.id, property.active)"></input>
+	  <label for="active-{{property.id}} " onclick=""></label>
+	</div>
+	<button class="center" data-ng-click="modalLoadCtrl.onClick(property)">Edit</button>
+	<button class="delete center" data-ng-click="modalLoadCtrl.model.removeProperty(scenario.id)">Delete</button>
+      </div>
+    </div>
+    <input class="unfold" type="checkbox" id="unfold-{{property.id}}"></input>
+    <p class="scenario-desc">
+      {{property.desc}}
+    </p>
+  </div>
   </accordion-group>
   <accordion-group heading="Templates">
-  KPOKWPOKFWEOFK
+  <div class="load-element" data-ng-show="modalLoadCtrl.model.templates.length == 0">
+    No Templates
+  </div>
+  <div class="load-element" data-ng-repeat="template in modalLoadCtrl.model.templates">
+    <div class="scenario-main">
+      <label class="center unfold" for="unfold-{{template.id}} " onclick="">{{template.name}}</label>
+      <div class="controls">
+	<button class="center" data-ng-click="modalLoadCtrl.onClick(template)">Edit</button>
+	<button class="delete center">Delete</button>
+      </div>
+    </div>
+    <input class="unfold" type="checkbox" id="unfold-{{template.id}}"></input>
+    <p class="scenario-desc">
+      {{template.desc}}
+    </p>
+  </div>
   </accordion-group>
   </accordion>
 </div>

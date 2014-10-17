@@ -17,7 +17,6 @@ module app {
       $scope.modalErrorCtrl = this;
       this.msg = msg;
       this.modalInstance = $modalInstance;
-      console.log(this);
     }
 
     private ok(){

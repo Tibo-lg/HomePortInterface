@@ -45,3 +45,14 @@ ul#picker li#pir{
   background-image: url(../images/pir.svg);
 }
 
+ul#picker li#temperature{
+  background-image: url(../images/temperature.svg);
+}
+
+ul#picker li#humidity{
+  background-image: url(../images/humidity.svg);
+}
+
+ul#picker li#thermostat{
+  background-image: url(../images/thermostat.svg);
+}

@@ -16,10 +16,9 @@
   <body data-ng-controller="app.AppCtrl">
     <ul id="menu">
       <li><a data-ng-click="appCtrl.newClick()" href="">NEW</a></li>
-      <li><a href="" data-ng-click="appCtrl.load()">LOAD</a></li>
-      <li><a href="" data-ng-click="appCtrl.saveScenario()">SAVE</a></li>
-      <li><a href="" data-ng-click="appCtrl.saveScenario()">UPLOAD</a></li>
-      <li>NAME: <input type="text" data-ng-model="appCtrl.curScenario.name"></li>
+      <li><a href="" data-ng-click="appCtrl.load()">MANAGE</a></li>
+      <li><a href="" data-ng-click="appCtrl.save()">SAVE</a></li>
+      <li>NAME: <input class="menu" type="text" data-ng-model="appCtrl.curScenario.name"></li>
     </ul>
     <div class="" ui-view></div>
     <!-- In production use:
@@ -49,6 +48,8 @@
     <script src="js/controllers/modalErrorCtrl.js"></script>
     <script src="js/controllers/modalChoiceCtrl.js"></script>
     <script src="js/controllers/modalLoadCtrl.js"></script>
+    <script src="js/controllers/modalEditCtrl.js"></script>
+    <script src="js/controllers/modalSuggCtrl.js"></script>
     <!-- App Directives -->
     <script src="js/directives/dragDevice.js"></script>
     <script src="js/directives/dropDevice.js"></script>
@@ -65,5 +66,6 @@
     <script src="js/models/IEvent.js"></script>
     <script src="js/models/ICondition.js"></script>
     <script src="js/models/IAction.js"></script>
+    <script src="js/models/IProperty.js"></script>
   </body>
 </html>

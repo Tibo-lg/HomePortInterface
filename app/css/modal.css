@@ -11,7 +11,7 @@
   padding: 10px 10px;
 }
 
-.modal-body button{
+.modal-body.choice button{
   display: block;
   margin: 0px auto 15px auto;
   padding: 10px 15px;
@@ -53,15 +53,135 @@
 }
 
 /**Modal Load**/
+
+.panel-title span{
+  cursor: pointer;
+}
+
 .modal-body .panel-body{
   padding: 0;
 }
 
-.modal-body .panel-body div.load-element{
-  padding: 5px 10px;
-  cursor: pointer;
+.modal-body .load-element{
+  padding: 0 15px;
+}
+
+.modal-body .panel-body div.load-element .scenario-main, .modal-body.load .controls{
+  height: 55px;
 }
 
 .modal-body .panel-body div.load-element:nth-child(n+3){
   border-top: 1px solid #ddd;
+}
+
+.load-element p.name{
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.modal-body.load button{
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-right: 5px;
+  height: 33px;
+}
+
+.modal-body.load button.delete{
+  background-color: #E91627;
+  color: white;
+}
+
+.modal-body.load .controls{
+  float: right;
+}
+
+.load-element input[type="checkbox"].unfold{
+  display: none;
+}
+
+.load-element label.unfold{
+  transition: all .4s ease;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.load-element input[type="checkbox"].unfold:checked + p{
+  display: inherit;
+  transition: all .4s ease;
+}
+
+.load-element p.scenario-desc{
+  padding-top: 15px;
+  display: none;
+  border-top: 1px solid #ddd;
+}
+
+/** Activate Picker **/
+.activate-picker{
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.activate-picker, .activate-picker:before, .activate-picker:after, .activate-picker label{
+  height: 33px;
+}
+
+.activate-picker:before, .activate-picker:after{
+  font-size: small;
+  color: white;
+  width:35px;
+  text-align: center;
+  line-height: 33px;
+}
+
+.activate-picker:before{
+  position: absolute;
+  content: "ON";
+  background-color: #55E528;
+  left:0;
+}
+
+.activate-picker:after{
+  position: absolute;
+  content: "OFF";
+  background-color: #E91627;
+  left: 35px;
+  top: 0;
+}
+
+.activate-picker input[type="checkbox"]{
+  visibility: hidden;
+}
+
+.activate-picker label{
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  transition: all .4s ease;
+  width: 35px;
+  border: 1px solid #D4D4D4;
+  background-color: #EFEFEF;
+  left: 0px;
+  top: 0px;
+  z-index: 5;
+}
+
+.activate-picker input[type="checkbox"]:checked + label{
+  left: 35px;
+}
+
+.activate-picker input[type="checkbox"]:checked + label + .online-labels{
+  background: #7DCF46;
+}
+
+/** Edit Modal **/
+
+textarea.desc-input{
+  width: 100%;
+  min-height: 150px;
+  resize: none;
 }

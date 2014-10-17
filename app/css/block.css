@@ -16,6 +16,7 @@
   position: relative;
   background: #ffffff;
   border-radius: 10px;
+  text-align: center;
 }
 
 .block p.block-label, .block p.block-value{
@@ -70,8 +71,15 @@
   width: 20%;
   height: 50%;
   position: absolute;
-  left: 0;
   margin: 0px 5px;
+}
+
+.block img.icon{
+  left: 0;
+}
+
+.block img.duration{
+  right: 0;
 }
 
 /*Decorating color*/

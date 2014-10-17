@@ -15,7 +15,6 @@ module app {
     constructor($scope: ModalChoiceScope, $modalInstance) {
       $scope.modalChoiceCtrl = this;
       this.modalInstance = $modalInstance;
-      console.log(this);
     }
 
     private redirect(route){

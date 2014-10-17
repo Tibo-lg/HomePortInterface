@@ -6,7 +6,6 @@ var app;
         function ModalChoiceCtrl($scope, $modalInstance) {
             $scope.modalChoiceCtrl = this;
             this.modalInstance = $modalInstance;
-            console.log(this);
         }
         ModalChoiceCtrl.prototype.redirect = function (route) {
             this.modalInstance.close(route);

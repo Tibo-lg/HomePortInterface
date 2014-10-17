@@ -9,7 +9,7 @@ angular.module('app')
 
   var transformScenario = function(scenario: ScenarioModel): IScenario{
     
-    var event = new IEvent(scenario.event.Service.value_url, scenario.event.operator + scenario.event.value, null)
+    var event = new IEvent(scenario.event.Service.value_url, scenario.event.operator + scenario.event.value, scenario.event.Duration)
     
     var conditions = scenario.conditions.map(function(d){
       return new ICondition(d.Service.value_url, d.operator + d.value);
@@ -18,14 +18,24 @@ angular.module('app')
     var actions = scenario.actions.map(function(d){
       return new IAction(d.Service.value_url, d.value, d.id);
     });
-    return new IScenario(scenario.name, scenario.id, event, conditions, actions);
+    return new IScenario(scenario.name, scenario.id, event, conditions, actions, scenario.desc, scenario.active);
   }
 
-  var findServiceFromUrl= function(url: string, devices: Array<DeviceModel>){
+  var transformProperty = function(scenario: ScenarioModel): IProperty{
+      var condition =  new ICondition(scenario.conditions[0].Service.value_url, scenario.conditions[0].operator + scenario.conditions[0].value);
+      var action =  new IAction(scenario.actions[0].Service.value_url, scenario.actions[0].value, scenario.actions[0].id);
+
+      return new IProperty(scenario.name, scenario.id, condition, action, scenario.desc, scenario.active);
+  }
+
+  var findServiceFromUrl= function(url: string, devices: Array<DeviceModel>, deviceType: string){
+    if(!url){
+      return {service: null, device: null, deviceType: deviceType};
+    }
     for(var i=0; i< devices.length; i++){
       for(var j=0; j< devices[i].service.length; j++){
 	if(devices[i].service[j].value_url === url){
-	  return {device: devices[i], service: devices[i].service[j]};
+	  return {device: devices[i], service: devices[i].service[j], deviceType: devices[i].type};
 	}
       }
     }
@@ -41,23 +51,33 @@ angular.module('app')
   }
 
   var reverseTransformScenario = function(scenario: IScenario, devices: Array<DeviceModel>): ScenarioModel{
-    var evDevice = findServiceFromUrl(scenario.event.serviceId, devices);
+    var evDevice = findServiceFromUrl(scenario.event.serviceId, devices, scenario.event.deviceType);
     var evVal = separateValue(scenario.event.value);
-    var event = new EventBlockModel("0", evDevice.device, evDevice.service, evVal.value, evVal.operator, scenario.event.duration); 
+    var event = new EventBlockModel("0", evDevice.device, evDevice.service, evVal.value, evVal.operator, scenario.event.duration, evDevice.deviceType); 
 
     var conditions = scenario.conditions.map( function(d){
-      var cDevice = findServiceFromUrl(d.serviceId, devices);
+      var cDevice = findServiceFromUrl(d.serviceId, devices, d.deviceType);
       var cVal = separateValue(d.value);
-      return new ConditionBlockModel("0", cDevice.device, cDevice.service, cVal.value, cVal.operator); 
+      return new ConditionBlockModel("0", cDevice.device, cDevice.service, cVal.value, cVal.operator, cDevice.deviceType); 
     });
 
     var actions = scenario.actions.map( function(d){
-      var aDevice = findServiceFromUrl(d.serviceId, devices);
-      var aVal = separateValue(d.value);
-      return new ActionBlockModel("0", aDevice.device, aDevice.service, aVal.value, aVal.operator, d.seqNumber); 
+      var aDevice = findServiceFromUrl(d.serviceId, devices, d.deviceType);
+      return new ActionBlockModel("0", aDevice.device, aDevice.service, d.value, null, d.seqNumber, aDevice.deviceType); 
     });
 
-    return new ScenarioModel(scenario.name, scenario.id, event, conditions, actions);
+    return new ScenarioModel(scenario.name, scenario.id, event, conditions, actions, scenario.desc, scenario.active);
+  }
+
+  var reverseTransformProperty =  function(property: IProperty, devices: Array<DeviceModel>): ScenarioModel{
+    var cDevice = findServiceFromUrl(property.condition.serviceId, devices, property.condition.deviceType);
+    var cVal = separateValue(property.condition.value);
+    var condition = new ConditionBlockModel("0", cDevice.device, cDevice.service, cVal.value, cVal.operator, cDevice.deviceType); 
+      
+    var aDevice = findServiceFromUrl(property.action.serviceId, devices, property.action.deviceType);
+    var action =  new ActionBlockModel("0", aDevice.device, aDevice.service, property.action.value, null, property.action.seqNumber, aDevice.deviceType); 
+
+    return new ScenarioModel(property.name, property.id, null, [condition], [action], property.desc, property.active);
   }
 
   return {
@@ -89,7 +109,7 @@ angular.module('app')
       	}
       });
     },
-    setScenario: function (scenario: ScenarioModel) {
+    setScenario: function (scenario: ScenarioModel, devices) {
       var url = url_base + "/scenarios/" + scenario.id;
       return  $http({
       	method: 'PUT',
@@ -97,14 +117,32 @@ angular.module('app')
 	data: transformScenario(scenario)
       })
       .then(function(response){
+	return response;
+      },
+      function(response){
+	if(response.status == 409){
+	  var cDevice = findServiceFromUrl(response.data.serviceId, devices, response.data.deviceType);
+	  var cVal = separateValue(response.data.value);
+	  response.data = new ConditionBlockModel("0", cDevice.device, cDevice.service, cVal.value, cVal.operator, cDevice.deviceType); 
+	}
+	return response;
+      });
+    },
+    removeScenario: function (id) {
+      var url = url_base + "/scenarios/" + id;
+      return  $http({
+      	method: 'DELETE',
+      	url: url
+      })
+      .then(function(response){
       	if(response.data.error){
       	  return null;
       	}else{
-      	  return response.data;
+      	  return null;
       	}
       });
     },
-    getProperties: function () {
+    getProperties: function (devices) {
       var url = url_base + "/properties";
       return  $http({
       	method: 'GET',
@@ -114,7 +152,63 @@ angular.module('app')
       	if(response.data.error){
       	  return null;
       	}else{
+      	  return response.data.map(function(d){return reverseTransformProperty(d, devices);});
+      	}
+      });
+    },
+    setProperty: function (scenario: ScenarioModel) {
+      var url = url_base + "/properties/" + scenario.id;
+      return  $http({
+      	method: 'PUT',
+      	url: url,
+	data: transformProperty(scenario)
+      })
+      .then(function(response){
+      	if(response.data.error){
+      	  return null;
+      	}else{
       	  return response.data;
+      	}
+      });
+    },
+    removeProperty: function (id) {
+      var url = url_base + "/properties/" + id;
+      return  $http({
+      	method: 'DELETE',
+      	url: url
+      })
+      .then(function(response){
+      	if(response.data.error){
+      	  return null;
+      	}else{
+      	  return null;
+      	}
+      });
+    },
+    getTemplates: function(){
+      var url = url_base + "/templates";
+      return  $http({
+      	method: 'GET',
+      	url: url
+      })
+      .then(function(response){
+      	if(response.data.error){
+      	  return null;
+      	}else{
+      	  return response.data.map(function(d){return reverseTransformScenario(d, null);});
+      	}
+      });
+    },
+    setActive: function(type, id, value){
+      var url = url_base + "/" + type + "/" + id + "/active";
+      return  $http({
+      	method: 'put',
+      	url: url,
+	data: { value: value }
+      })
+      .then(function(response){
+      	if(response.data.error){
+      	}else{
       	}
       });
     },

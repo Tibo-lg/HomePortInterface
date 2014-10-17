@@ -11,6 +11,9 @@ var app;
         ModalLoadCtrl.prototype.onClick = function (object) {
             this.modalInstance.close(object);
         };
+        ModalLoadCtrl.prototype.test = function () {
+            console.log("JOIJOIJOIJ");
+        };
         ModalLoadCtrl.$inject = ['$scope', '$modalInstance', 'model'];
         return ModalLoadCtrl;
     })();

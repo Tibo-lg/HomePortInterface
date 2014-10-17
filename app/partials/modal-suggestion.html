@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h3 class="modal-title">Unsafe Scenario</h3>
+</div>
+<div class="modal-body">
+  <p>This scenario conflicts with a constraint of the environment. You can solve it by adding the following condition to the scenario.</p>
+  <div class="block instantiated condition" data-ng-show="modalSuggCtrl.condition">
+    <img class="center" data-ng-src="images/{{modalSuggCtrl.condition.deviceType | lowercase}}.svg"/>
+    <p>{{(modalSuggCtrl.condition.Device.location) || "---"}}</p>
+    <p>{{(modalSuggCtrl.condition.Device.desc) || "---"}}</p>
+    <p>{{(modalSuggCtrl.condition.Service.desc) || "---"}} {{modalSuggCtrl.condition.operator}}  {{modalSuggCtrl.condition.value}}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="ok" data-ng-click="modalSuggCtrl.onClick()">Ok</button>
+    <button class="cancel" data-ng-click="modalSuggCtrl.onCancel()" >Cancel</button>
+  </div>
+</div>
+

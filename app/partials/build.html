@@ -6,11 +6,12 @@
   <div class="block-container event">
     <p>When this happens</p>
     <div class="block droppable event" data-dropfct="openModal" data-type="0" data-ng-show="!appCtrl.curScenario.event" data-drop-device><p class="center">Drop a device here!</p></div>
-    <div class="block instantiated event" data-ng-show="appCtrl.curScenario.event" ng-dblclick="appCtrl.removeBlock(appCtrl.curScenario.event)" ng-click="appCtrl.openBlock(appCtrl.curScenario.event)">
-      <img class="center" data-ng-src="images/{{appCtrl.curScenario.event.Device.type | lowercase}}.svg"/>
-      <p>{{appCtrl.curScenario.event.Device.location}}</p>
-      <p>{{appCtrl.curScenario.event.Device.desc}}</p>
-      <p>{{appCtrl.curScenario.event.operator}}  {{appCtrl.curScenario.event.value}}</p>
+    <div class="block instantiated event" data-ng-show="appCtrl.curScenario.event" ng-click="appCtrl.openBlock(appCtrl.curScenario.event, 0)">
+      <img class="center icon" data-ng-src="images/{{appCtrl.curScenario.event.deviceType | lowercase}}.svg"/>
+      <p>{{(appCtrl.curScenario.event.Device.location) || "---"}}</p>
+      <p>{{(appCtrl.curScenario.event.Device.desc) || "---"}}</p>
+      <p>{{(appCtrl.curScenario.event.Service.desc) || "---"}} {{appCtrl.curScenario.event.operator}}  {{appCtrl.curScenario.event.value}}</p>
+      <img data-ng-show="appCtrl.curScenario.event.Duration" class="center duration" data-ng-src="images/d{{appCtrl.curScenario.event.Duration}}_test.svg"/>
     </div>
   </div>
 </div>
@@ -18,11 +19,11 @@
   <div class="block-container condition">
     <p>If the house is in this state:</p>
     <div class="block droppable condition" data-dropfct="openModal" data-type="1" data-drop-device><p class="center">Drop a device here!</p></div>
-    <div data-ng-repeat="block in appCtrl.curScenario.conditions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated condition">
-      <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
-      <p>{{block.Device.location}}</p>
-      <p>{{block.Device.desc}}</p>
-      <p>{{block.operator}}  {{block.value}}</p>
+    <div data-ng-repeat="block in appCtrl.curScenario.conditions" ng-click="appCtrl.openBlock(block, 1)"  class="block instantiated condition">
+      <img class="center icon" data-ng-src="images/{{block.deviceType | lowercase}}.svg"/>
+      <p>{{(block.Device.location) || "---"}}</p>
+      <p>{{(block.Device.desc) || "---"}}</p>
+      <p>{{(block.Service.desc) || "---"}} {{block.operator}}  {{block.value}}</p>
     </div>
   </div>
 </div>
@@ -30,11 +31,11 @@
   <div class="block-container action">
     <p>Then do this:</p>
     <div class="block droppable action" data-dropfct="openModal" data-type="2" data-drop-device><p class="center">Drop a device here!</p></div>
-    <div data-ng-repeat="block in appCtrl.curScenario.actions" ng-dblclick="appCtrl.removeBlock(block)"  class="block instantiated action">
-      <img class="center" data-ng-src="images/{{block.Device.type | lowercase}}.svg"/>
-      <p>{{block.Device.location}}</p>
-      <p>{{block.Device.desc}}</p>
-      <p>{{block.operator}}  {{block.value}}</p>
+    <div data-ng-repeat="block in appCtrl.curScenario.actions" ng-click="appCtrl.openBlock(block, 2)"  class="block instantiated action">
+      <img class="center icon" data-ng-src="images/{{block.deviceType | lowercase}}.svg"/>
+      <p>{{(block.Device.location) || "---"}}</p>
+      <p>{{(block.Device.desc) || "---"}}</p>
+      <p><small>Set</small> {{(block.Service.desc) || "---"}} <small>to</small> {{block.value}}</p>
     </div>
   </div>
 </div>

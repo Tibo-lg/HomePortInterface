@@ -1,5 +1,5 @@
 /** MENU **/
-input{
+input.menu{
   border: none;
   border-radius: 25px;
   min-width: 400px;

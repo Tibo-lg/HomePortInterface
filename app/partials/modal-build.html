@@ -13,20 +13,32 @@
       <option value="">Choose Service</option>
     </select>
     <p>Select how the device should be in this block:</p>
-    <select data-ng-model="modalBuildCtrl.newBlock.operator" data-ng-disabled="!modalBuildCtrl.newBlock.Service || !(modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1)">
+    <select data-ng-model="modalBuildCtrl.newBlock.operator" 
+      data-ng-disabled="!modalBuildCtrl.newBlock.Service || ( !(modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1) && modalBuildCtrl.blockType!=1)"
+      data-ng-show="modalBuildCtrl.blockType!=2">
       <option value="=" data-ng-selected="selected">=</option>
-      <option value="<">&lt;</option>
-      <option value=">">&gt;</option>
-      <option value="<=">&lt;=</option>
-      <option value=">=">&gt;=</option>
+      <option data-ng-show="modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1" value="<">&lt;</option>
+      <option data-ng-show="modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1" value=">">&gt;</option>
+      <option data-ng-show="modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1" value="<=">&lt;=</option>
+      <option data-ng-show="modalBuildCtrl.newBlock.Service.parameter.max - modalBuildCtrl.newBlock.Service.parameter.min > 1" value=">=">&gt;=</option>
+      <option data-ng-show="modalBuildCtrl.blockType==1" value="!=">!=</option>
     </select>
     <select data-ng-model="modalBuildCtrl.newBlock.value" data-ng-disabled="!modalBuildCtrl.newBlock.Service" 
-      data-ng-options="n for n in [] | range:modalBuildCtrl.newBlock.Service.parameter.min:modalBuildCtrl.newBlock.Service.parameter.max:modalBuildCtrl.newBlock.Service.parameter.step" >
+      data-ng-options="n.toString() as n for n in [] | range:modalBuildCtrl.newBlock.Service.parameter.min:modalBuildCtrl.newBlock.Service.parameter.max:modalBuildCtrl.newBlock.Service.parameter.step || modalBuildCtrl.newBlock.value" >
       <option value="">Choose Value</option>
+    </select>
+    <p data-ng-show="modalBuildCtrl.blockType==0">Select for how long this event should last to trigger the scenario (optional)</p>
+    <select data-ng-model="modalBuildCtrl.newBlock.Duration" data-ng-show="modalBuildCtrl.blockType==0">
+      <option value="">None</option>
+      <option value="5">&gt;5 sec</option>
+      <option value="15">&gt;15 sec</option>
+      <option value="30">&gt;30 sec</option>
+      <option value="60">&gt;1 min</option>
     </select>
   </div>
   <div class="modal-footer">
-    <button class="ok" data-ng-click="modalBuildCtrl.ok()" data-ng-disabled="modalBuildCtrl.newBlock.value==null">Add Block</button>
-    <button class="cancel" data-ng-click="modalBuildCtrl.cancel()" >Cancel</button>
+    <button class="ok" data-ng-click="modalBuildCtrl.ok()" data-ng-disabled="modalBuildCtrl.newBlock.value==null
+      ||modalBuildCtrl.newBlock.Device==null||modalBuildCtrl.newBlock.Service==null">{{this.modalBuildCtrl.okButton}}</button>
+    <button class="cancel" data-ng-click="modalBuildCtrl.cancel()" >{{this.modalBuildCtrl.cancelButton}}</button>
   </div>
 </div>

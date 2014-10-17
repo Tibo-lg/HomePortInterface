@@ -1,11 +1,13 @@
 var ScenarioModel = (function () {
-    function ScenarioModel(name, id, whenBlock, ifArray, thenArray) {
+    function ScenarioModel(name, id, whenBlock, ifArray, thenArray, desc, active) {
         this.event = whenBlock;
         this.conditions = ifArray;
         this.actions = thenArray;
         this.name = name;
         this.id = id;
         this.IsSaved = true;
+        this.desc = desc;
+        this.active = active;
     }
     ScenarioModel.prototype.CreateCopy = function () {
         var tmpconditions = new Array();
@@ -19,7 +21,7 @@ var ScenarioModel = (function () {
             tmpactions.push(this.actions[i].CreateCopy());
         }
 
-        return new ScenarioModel(this.name, this.id, (this.event == null ? null : this.event.CreateCopy()), tmpconditions, tmpactions);
+        return new ScenarioModel(this.name, this.id, (this.event == null ? null : this.event.CreateCopy()), tmpconditions, tmpactions, this.desc, this.active);
     };
     return ScenarioModel;
 })();
