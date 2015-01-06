@@ -2,7 +2,8 @@
 enum BlockType {
   EVENT,
   CONDITION,
-  ACTION
+  ACTION,
+  P_ACTION
 }
 
 class BlockModel {

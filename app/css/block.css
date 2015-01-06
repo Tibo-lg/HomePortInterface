@@ -1,11 +1,25 @@
 /**BLOCKS**/
 
+.block-wrapper{
+  border-radius: 50px;
+  border-left: 1px solid #E74c3c;
+  border-right: 1px solid #F2A71D;
+  margin: 0px 2%;
+  width: 96%
+}
+
+.block-wrapper.prop-wrapper{
+  border-left-color: #F26D22;
+}
+
 .block-container{
   margin-top: 20px;
-  border: 2px solid #0088C1;
-  border-radius: 25px;
   padding: 10px 5px;
   text-align: center;
+}
+
+.prop-wrapper .block-container.condition{
+  border-left: none;
 }
 
 .block{
@@ -14,8 +28,8 @@
   min-width: 270px;
   height: 100px;
   position: relative;
-  background: #ffffff;
-  border-radius: 10px;
+  background: rgba(255,255,255, 0.2);
+  /*border-radius: 10px;*/
   text-align: center;
 }
 
@@ -33,13 +47,22 @@
 }
 
 .block.instantiated{
-  border-width: 1px;
+  border-width: 3px;
   border-style: solid;
+  -webkit-animation-name: 'pulse_animation';
+  -webkit-animation-duration: 500ms;
+  -webkit-transform-origin:70% 70%;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
 }
 
 .block.droppable{
-  border-width: 1px;
+  border-width: 3px;
   border-style: dashed;
+  /*-webkit-box-shadow: inset 14px 14px 30px 7px rgba(50, 50, 50, 0.08);
+  -moz-box-shadow:    inset 14px 14px 30px 7px rgba(50, 50, 50, 0.08);
+  box-shadow:         inset 14px 14px 30px 7px rgba(50, 50, 50, 0.08);
+*/
 }
 
 /**.block:after, .block:before {
@@ -72,6 +95,7 @@
   height: 50%;
   position: absolute;
   margin: 0px 5px;
+  left: 0;
 }
 
 .block img.icon{
@@ -82,16 +106,31 @@
   right: 0;
 }
 
-/*Decorating color*/
+/*Decorating color and shape*/
 .event{
-  border-color: #CD1F44;
+  border-right: 1px solid #E74c3c;
+  border-color: #E74c3c;
 }
 
 .condition{
+  border-left: 1px solid #F26D22;
+  border-right: 1px solid #F26D22;
   border-color: #F26D22;
 }
 
 .action{
+  border-left: 1px solid #F2A71D;
   border-color: #F2A71D;
+}
+
+
+
+/*Keyframes*/
+
+@-webkit-keyframes pulse_animation {
+	0% { -webkit-transform: scale(1); }
+	40% { -webkit-transform: scale(1.08); }
+	70% { -webkit-transform: scale(0.95); }
+	100% { -webkit-transform: scale(1); }
 }
 

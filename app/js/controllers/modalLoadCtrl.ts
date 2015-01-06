@@ -22,7 +22,6 @@ module app {
     private onClick(object){
       this.modalInstance.close(object);
     }
-    private test(){console.log("JOIJOIJOIJ");}
   }
 }
 

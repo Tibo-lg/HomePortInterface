@@ -9,6 +9,7 @@ var BlockType;
     BlockType[BlockType["EVENT"] = 0] = "EVENT";
     BlockType[BlockType["CONDITION"] = 1] = "CONDITION";
     BlockType[BlockType["ACTION"] = 2] = "ACTION";
+    BlockType[BlockType["P_ACTION"] = 3] = "P_ACTION";
 })(BlockType || (BlockType = {}));
 
 var BlockModel = (function () {

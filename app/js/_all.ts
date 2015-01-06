@@ -23,6 +23,7 @@
 
 //################### Filters ####################
 /// <reference path='filters/range.ts' />
+/// <reference path='filters/unit.ts' />
 
 //################### Models ####################
 /// <reference path='models/scenarioModel.ts'/>

@@ -96,6 +96,9 @@ var app;
                         case 2 /* ACTION */:
                             _this.curScenario.actions.push(newBlock);
                             break;
+                        case 3 /* P_ACTION */:
+                            _this.curScenario.actions.push(newBlock);
+                            break;
                     }
                 }
             });
@@ -129,6 +132,9 @@ var app;
                 } else {
                     curBlock.setToBlock(newBlock);
                 }
+                console.log(curBlock);
+                console.log(newBlock);
+                console.log(_this.curScenario.actions);
             });
         };
 

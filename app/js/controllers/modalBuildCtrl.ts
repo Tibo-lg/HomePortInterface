@@ -32,6 +32,9 @@ module app {
 	  case BlockType.ACTION:
 	    this.newBlock = new ActionBlockModel("0");
 	    break;
+	  case BlockType.P_ACTION:
+	    this.newBlock = new ActionBlockModel("0");
+	    break;
 	}
 	this.newBlock.deviceType = curDeviceType;
 	this.okButton = "Add Block";

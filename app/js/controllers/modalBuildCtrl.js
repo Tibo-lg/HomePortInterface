@@ -17,6 +17,9 @@ var app;
                     case 2 /* ACTION */:
                         this.newBlock = new ActionBlockModel("0");
                         break;
+                    case 3 /* P_ACTION */:
+                        this.newBlock = new ActionBlockModel("0");
+                        break;
                 }
                 this.newBlock.deviceType = curDeviceType;
                 this.okButton = "Add Block";

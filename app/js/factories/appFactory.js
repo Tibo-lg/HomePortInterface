@@ -20,7 +20,9 @@ angular.module('app').factory('appFactory', [
 
         var transformProperty = function (scenario) {
             var condition = new ICondition(scenario.conditions[0].Service.value_url, scenario.conditions[0].operator + scenario.conditions[0].value);
-            var action = new IAction(scenario.actions[0].Service.value_url, scenario.actions[0].value, scenario.actions[0].id);
+            var action = new IAction(scenario.actions[0].Service.value_url, scenario.actions[0].operator + scenario.actions[0].value, scenario.actions[0].id);
+
+            console.log(action);
 
             return new IProperty(scenario.name, scenario.id, condition, action, scenario.desc, scenario.active);
         };

@@ -117,6 +117,9 @@ module app {
 	    case BlockType.ACTION:
 	      this.curScenario.actions.push(newBlock);
 	      break;
+	    case BlockType.P_ACTION:
+	      this.curScenario.actions.push(newBlock);
+	      break;
 	  }
 	}
       });
@@ -149,6 +152,9 @@ module app {
 	}else{
 	  curBlock.setToBlock(newBlock);
 	}
+	console.log(curBlock);
+	console.log(newBlock);
+	console.log(this.curScenario.actions);
       });
     }
 

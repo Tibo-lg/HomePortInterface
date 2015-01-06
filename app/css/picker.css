@@ -13,8 +13,8 @@ ul#picker li{
   background-size: 60px 60px;
   background-position: center;
   background-repeat: no-repeat;
-  border: 2px solid #0088C1;
-  border-radius: 15px;
+  border: 3px solid #0088C1;
+  border-radius: 50px;
 } 
 
 ul#picker li#dimmer{
@@ -41,12 +41,12 @@ ul#picker li#window{
   background-image: url(../images/window.svg);
 }
 
-ul#picker li#pir{
-  background-image: url(../images/pir.svg);
+ul#picker li#occupancy{
+  background-image: url(../images/occupancy.svg);
 }
 
-ul#picker li#temperature{
-  background-image: url(../images/temperature.svg);
+ul#picker li#thermometer{
+  background-image: url(../images/thermometer.svg);
 }
 
 ul#picker li#humidity{
